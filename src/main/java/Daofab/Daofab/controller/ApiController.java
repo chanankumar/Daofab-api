@@ -29,13 +29,15 @@ public class ApiController  {
         List<Parent> allUsers = getAllParentDataFromJson();
         int startIndex = (page - 1) * size;
         int endIndex = Math.min(startIndex + size, allUsers.size());
-        List<Parent> paginatedUsers = allUsers.subList(startIndex, endIndex);
+
 
         if (sort.equalsIgnoreCase("asc")) {
-            paginatedUsers.sort(Comparator.comparing(Parent::getId));
+        	allUsers.sort(Comparator.comparing(Parent::getId));
         } else if (sort.equalsIgnoreCase("desc")) {
-            paginatedUsers.sort(Comparator.comparing(Parent::getId).reversed());
+        	allUsers.sort(Comparator.comparing(Parent::getId).reversed());
         }
+        
+        List<Parent> paginatedUsers = allUsers.subList(startIndex, endIndex);
         
         return paginatedUsers;
 	}
