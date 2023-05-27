@@ -15,10 +15,14 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/ChildData")
+
+//child data api
+
 public class ChildApiController {
 
     @GetMapping("/{id}")
     public List<Child> getUsersById(@PathVariable int id) {
+//    	data based on parent id
     	List<Child> allUsers = getAllUsersFromJson();
         return allUsers.stream()
                 .filter(data -> data.getParentId() == id)
@@ -26,6 +30,7 @@ public class ChildApiController {
     }
 
     private List<Child> getAllUsersFromJson() {
+//    	getting data from json
         ObjectMapper objectMapper = new ObjectMapper();
         InputStream inputStream = getClass().getResourceAsStream("Child.json");
 

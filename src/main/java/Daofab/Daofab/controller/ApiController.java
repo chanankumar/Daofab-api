@@ -15,6 +15,8 @@ import java.io.InputStream;
 import java.util.Comparator;
 import java.util.List;
 
+//Parent Api
+
 @RestController
 public class ApiController  {
 
@@ -26,17 +28,21 @@ public class ApiController  {
             @RequestParam(defaultValue = "" + DEFAULT_PAGE_SIZE) int size,
             @RequestParam(value = "sort", defaultValue = "asc") String sort) throws IOException {
 
+//    	Setting pagination data
+    	
         List<Parent> allUsers = getAllParentDataFromJson();
         int startIndex = (page - 1) * size;
         int endIndex = Math.min(startIndex + size, allUsers.size());
 
-
+//        Sorting Data
+        
         if (sort.equalsIgnoreCase("asc")) {
         	allUsers.sort(Comparator.comparing(Parent::getId));
         } else if (sort.equalsIgnoreCase("desc")) {
         	allUsers.sort(Comparator.comparing(Parent::getId).reversed());
         }
         
+//        Getting number of data requested
         List<Parent> paginatedUsers = allUsers.subList(startIndex, endIndex);
         
         return paginatedUsers;
@@ -45,6 +51,7 @@ public class ApiController  {
    
 	
     private List<Parent> getAllParentDataFromJson() throws IOException {
+//    	Reading data from JSON
         ObjectMapper objectMapper = new ObjectMapper();
         InputStream inputStream = getClass().getResourceAsStream("Parent.json");
 
